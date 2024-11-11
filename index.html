@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extract HTML Widget Content - Rhyll Neri</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Extract Custom HTML Widget Content</h1>
+	<small>by: Rhyll Neri</small>
+    <textarea id="htmlInput" placeholder="Paste your HTML here..."></textarea>
+
+    <button onclick="extractWidgets()">Extract Content</button>
+
+    <div id="output">
+        <h2>Extracted Content:</h2>
+        <pre id="widgetContent"></pre>
+    </div>
+</div>
+
+<script>
+    function extractWidgets() {
+        const htmlContent = document.getElementById("htmlInput").value;
+
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlContent, "text/html");
+
+
+        const customHtmlWidgets = doc.querySelectorAll("div.widget_text.widget-container.widget_custom_html");
+
+
+        const outputContainer = document.getElementById("widgetContent");
+        outputContainer.textContent = "";
+
+        customHtmlWidgets.forEach(widget => {
+
+            outputContainer.textContent += widget.innerHTML + "\n\n";
+        });
+    }
+</script>
+
+</body>
+</html>
